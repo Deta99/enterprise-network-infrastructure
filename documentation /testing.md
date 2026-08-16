@@ -20,9 +20,9 @@ Client connectivity between VLANs was tested through the R1 Router-on-a-Stick co
 
 Client devices successfully received:
 
-- IP address
-- Default gateway
-- DNS server
+* IP address
+* Default gateway
+* DNS server
 
 ### DNS
 
@@ -149,9 +149,98 @@ FULL
 
 The branch route was also restored.
 
+---
+
+# Day 3 — STP and EtherChannel Verification
+
+## STP Root Verification
+
+STP operation was verified using:
+
+```text
+show spanning-tree
+show spanning-tree vlan 10
+```
+
+CORE-SW was confirmed as the STP root for the configured VLANs.
+
+## STP Redundancy Testing
+
+A redundant Layer 2 connection was created between CORE-SW and SW-A.
+
+STP initially placed the redundant path into a blocking state to prevent a Layer 2 loop.
+
+The active path was then shut down to test failover.
+
+The alternate path successfully transitioned to forwarding, confirming STP redundancy.
+
+## EtherChannel Verification
+
+LACP EtherChannel was configured between CORE-SW and SW-A.
+
+The configuration was verified using:
+
+```text
+show etherchannel summary
+```
+
+The Port-Channel successfully formed with both physical members:
+
+```text
+Po1(SU)   LACP
+Fa0/2(P)
+Fa0/6(P)
+```
+
+## EtherChannel Troubleshooting
+
+During configuration, Fa0/6 was suspended because its Layer 2 configuration was incompatible with Fa0/2.
+
+The issue was identified from the Cisco error message and traced to a trunk/access configuration mismatch.
+
+Fa0/2 was configured as a trunk, after which both links successfully joined the EtherChannel.
+
+## EtherChannel Failover Testing
+
+One physical EtherChannel member was intentionally shut down.
+
+The Port-Channel remained operational through the remaining physical member, confirming link-level redundancy.
+
+## PortFast Verification
+
+PortFast was configured on SW-A end-device ports.
+
+Verification was performed using:
+
+```text
+show spanning-tree interface fa0/2 detail
+```
+
+The output confirmed:
+
+```text
+The port is in the portfast mode
+```
+
+## BPDU Guard Verification
+
+BPDU Guard was configured on the same end-device access ports.
+
+The configuration was verified using:
+
+```text
+show running-config interface fa0/2
+```
+
+The output confirmed:
+
+```text
+spanning-tree bpduguard enable
+```
+
 ## Verification Commands
 
-Important commands used during testing:
+Important commands used during the project:
 
 ```text
 show ip interface brief
@@ -159,10 +248,21 @@ show ip route
 show ip ospf neighbor
 show ip ospf interface
 show running-config
+show vlan brief
+show interfaces trunk
+show spanning-tree
+show spanning-tree vlan 10
+show spanning-tree interface fa0/2 detail
+show etherchannel summary
 ping
 nslookup
 ```
 
 ## Result
 
-The HQ and branch networks successfully communicate through OSPF dynamic routing, with the branch network being learned automatically by R1.
+The HQ and branch networks successfully communicate through OSPF dynamic routing.
+
+Layer 2 redundancy was successfully implemented and tested using STP and LACP EtherChannel.
+
+PortFast and BPDU Guard were also successfully configured and verified on end-device access ports.
+
