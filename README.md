@@ -8,7 +8,7 @@ The project simulates an enterprise HQ and branch environment while progressivel
 
 ## Current Architecture
 
-
+```text
                          R1-EDGE
                         /        \
                        /          \
@@ -17,58 +17,62 @@ The project simulates an enterprise HQ and branch environment while progressivel
              SW-A   SW-B   SW-C      SW-D
                                      |
                                 Branch LAN
-
+```
 
 ## Network Segmentation
 
-| VLAN | Name | Network |
-|------|------|---------|
-| 10 | IT | 192.168.10.0/24 |
-| 20 | HR | 192.168.20.0/24 |
-| 30 | Finance | 192.168.30.0/24 |
-| 40 | Sales | 192.168.40.0/24 |
-| 50 | Servers | 192.168.50.0/24 |
-| 99 | Management | 192.168.99.0/24 |
-| - | Branch | 192.168.100.0/24 |
+| VLAN | Name       | Network          |
+| ---- | ---------- | ---------------- |
+| 10   | IT         | 192.168.10.0/24  |
+| 20   | HR         | 192.168.20.0/24  |
+| 30   | Finance    | 192.168.30.0/24  |
+| 40   | Sales      | 192.168.40.0/24  |
+| 50   | Servers    | 192.168.50.0/24  |
+| 99   | Management | 192.168.99.0/24  |
+| -    | Branch     | 192.168.100.0/24 |
 
 ## Implemented Technologies
 
 ### Switching & LAN
 
-- VLAN segmentation
-- 802.1Q trunking
-- Router-on-a-Stick
-- Inter-VLAN routing
+* VLAN segmentation
+* 802.1Q trunking
+* Router-on-a-Stick
+* Inter-VLAN routing
+* STP / PVST
+* LACP EtherChannel
+* PortFast
+* BPDU Guard
 
 ### Network Services
 
-- DHCP
-- DNS
-- IPv4 subnetting
+* DHCP
+* DNS
+* IPv4 subnetting
 
 ### Routing
 
-- OSPF
-- OSPF Area 0
-- Router IDs
-- Passive interfaces
-- Dynamic route learning
+* OSPF
+* OSPF Area 0
+* Router IDs
+* Passive interfaces
+* Dynamic route learning
 
 ## Project Progress
 
-| Stage | Implementation | Status |
-|------|----------------|--------|
-| Day 1 | Enterprise LAN + VLANs + DHCP + DNS | ✅ |
-| Day 2 | OSPF + Branch Network | ✅ |
-| Day 3 | STP + EtherChannel | 🔜 |
-| Day 4 | ACLs + Network Security | 🔜 |
-| Day 5 | Monitoring + SNMP | 🔜 |
-| Day 6 | Network Automation | 🔜 |
-| Day 7 | WAN + Multi-Site Design | 🔜 |
+| Stage | Implementation                             | Status |
+| ----- | ------------------------------------------ | ------ |
+| Day 1 | Enterprise LAN + VLANs + DHCP + DNS        | ✅      |
+| Day 2 | OSPF + Branch Network                      | ✅      |
+| Day 3 | STP + EtherChannel + PortFast + BPDU Guard | ✅      |
+| Day 4 | ACLs + Network Security                    | 🔜     |
+| Day 5 | Monitoring + SNMP                          | 🔜     |
+| Day 6 | Network Automation                         | 🔜     |
+| Day 7 | WAN + Multi-Site Design                    | 🔜     |
 
 ## Repository Structure
 
-
+```text
 enterprise-network-infrastructure/
 │
 ├── README.md
@@ -76,13 +80,13 @@ enterprise-network-infrastructure/
 ├── configs/
 ├── documentation/
 └── topology/
-
+```
 
 ## Tools
 
-- Cisco Packet Tracer
-- Cisco IOS
-- Git / GitHub
+* Cisco Packet Tracer
+* Cisco IOS
+* Git / GitHub
 
 ## Objective
 
