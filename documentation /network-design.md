@@ -10,6 +10,8 @@ Day 2 extends the network by adding a branch router and implementing OSPF dynami
 
 Day 3 adds Layer 2 redundancy, Spanning Tree Protocol, LACP EtherChannel, PortFast, and BPDU Guard.
 
+Day 4 adds network security using extended ACLs to control traffic between VLANs and restrict access to specific services.
+
 ## Network Architecture
 
 ```text
@@ -111,11 +113,33 @@ LACP is configured between CORE-SW and SW-A.
 
 Two physical trunk links are bundled into `Port-channel1`, providing redundancy while allowing the physical links to operate as a single logical connection.
 
-### PortFast
+### PortFast and BPDU Guard
 
-PortFast is enabled on end-device access ports on SW-A so that client devices can transition to the forwarding state without waiting for the normal STP process.
+PortFast is enabled on end-device access ports on SW-A so that client devices can transition to the forwarding state quickly.
 
-### BPDU Guard
+BPDU Guard is enabled on the same end-device ports to protect against unexpected BPDUs and unauthorized Layer 2 connections.
 
-BPDU Guard is enabled on the same end-device ports to protect the network from unexpected BPDUs and unauthorized Layer 2 connections.
+### Access Control Lists
+
+Extended ACLs are used on R1 to control traffic between VLANs.
+
+The ACLs can match:
+
+* Source IP
+* Destination IP
+* Protocol
+* Destination port
+
+An example security policy restricts HR access to the IT network while allowing other traffic.
+
+The HR VLAN can also be restricted to specific services on the server VLAN, such as:
+
+```text
+DNS   UDP/53
+HTTPS TCP/443
+```
+
+Specific permit and deny rules are placed before the general `permit ip any any` rule because ACLs are processed from top to bottom using first-match logic.
+
+ACLs are applied inbound on the corresponding VLAN subinterfaces to filter traffic as it enters R1.
 
