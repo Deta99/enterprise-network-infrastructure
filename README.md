@@ -15,6 +15,9 @@ The project simulates an enterprise HQ and branch environment while progressivel
                   CORE-SW        R2-BRANCH-A
                 /    |    \           |
              SW-A   SW-B   SW-C      SW-D
+                \    /
+                 \  /
+              EtherChannel
                                      |
                                 Branch LAN
 ```
@@ -58,17 +61,26 @@ The project simulates an enterprise HQ and branch environment while progressivel
 * Passive interfaces
 * Dynamic route learning
 
+### Network Security
+
+* Extended ACLs
+* Named ACLs
+* Source and destination filtering
+* TCP/UDP port filtering
+* Inbound ACL application
+* Least-privilege access control
+
 ## Project Progress
 
-| Stage | Implementation                             | Status |
-| ----- | ------------------------------------------ | ------ |
-| Day 1 | Enterprise LAN + VLANs + DHCP + DNS        | ✅      |
-| Day 2 | OSPF + Branch Network                      | ✅      |
-| Day 3 | STP + EtherChannel + PortFast + BPDU Guard | ✅      |
-| Day 4 | ACLs + Network Security                    | 🔜     |
-| Day 5 | Monitoring + SNMP                          | 🔜     |
-| Day 6 | Network Automation                         | 🔜     |
-| Day 7 | WAN + Multi-Site Design                    | 🔜     |
+| Stage | Implementation                      | Status |
+| ----- | ----------------------------------- | ------ |
+| Day 1 | Enterprise LAN + VLANs + DHCP + DNS | ✅      |
+| Day 2 | OSPF + Branch Network               | ✅      |
+| Day 3 | STP + EtherChannel                  | ✅      |
+| Day 4 | ACLs + Network Security             | ✅      |
+| Day 5 | Monitoring + SNMP                   | 🔜     |
+| Day 6 | Network Automation                  | 🔜     |
+| Day 7 | WAN + Multi-Site Design             | 🔜     |
 
 ## Repository Structure
 
